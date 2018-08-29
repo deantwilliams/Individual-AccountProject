@@ -3,8 +3,11 @@ package com.qa.account.AccountProject.models;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="tbl_accounts")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Account {
 	
 	@Id
@@ -12,15 +15,15 @@ public class Account {
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="first_name", length=50)
+	@Column(name="first_name", length=30)
 	@NotNull
 	private String firstName;
 	
-	@Column(name="last_name", length=50)
+	@Column(name="last_name", length=30)
 	@NotNull
 	private String lastName;
 	
-	@Column(name="account_no", length=4)
+	@Column(name="account_no", length=6)
 	@NotNull
 	private String accountNumber;
 	
