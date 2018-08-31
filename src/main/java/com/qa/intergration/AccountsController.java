@@ -1,48 +1,50 @@
-package com.qa.account.AccountProject.controllers;
+package com.qa.intergration;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.account.AccountProject.models.Account;
-import com.qa.account.repositories.AccountRepository;
+import com.qa.persistence.domain.Account;
+import com.qa.persistence.repository.AccountRepository;
 
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/accounts")
 public class AccountsController {
 	
 	@Autowired
 	private AccountRepository accountRepo;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public List<Account> getAllAccounts()
 	{
 		return accountRepo.findAll();
 	}
 	
-	@PostMapping
+	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createAccount(@RequestBody Account account)
 	{
 		accountRepo.save(account);
 	}
 	
-	@PostMapping("/{id}")
+	@DeleteMapping("delete/{id}")
 	@ResponseStatus(HttpStatus.GONE)
 	public void deleteAccount(@PathVariable("id") long id)
 	{
 		accountRepo.deleteById(id);
 	}
 	
-	@PostMapping("/update")
+	@PutMapping("/update/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void updateAccount(@RequestBody Account accountUpdated)
 	{

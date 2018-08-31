@@ -1,4 +1,4 @@
-package com.qa.account.AccountProject.models;
+package com.qa.persistence.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,20 +17,23 @@ public class Account {
 	
 	@Column(name="first_name", length=30)
 	@NotNull
+	@Pattern(regexp="[^A-Za-z]+",message="Last name must contain only alphabetic letters")
 	private String firstName;
 	
 	@Column(name="last_name", length=30)
 	@NotNull
+	@Pattern(regexp="[^A-Za-z]+",message="Last name must contain only alphabetic letters")
 	private String lastName;
 	
 	@Column(name="account_no", length=6)
+	@Size(min=6,max=6,message="Account number must be a length of exactly {max}")
 	@NotNull
+	@Pattern(regexp="[^0-9]+",message="Account number can only contain numerical values")
 	private String accountNumber;
 	
 	public Account() {}
 	
-	public Account(long id, @NotNull String firstName, @NotNull String lastName, @NotNull String accountNumber) {
-		this.id = id;
+	public Account(@NotNull String firstName, @NotNull String lastName, @NotNull String accountNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.accountNumber = accountNumber;
